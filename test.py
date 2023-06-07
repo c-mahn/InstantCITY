@@ -36,7 +36,6 @@ if __name__=="__main__":
             model.half()
         elif opt.data_type == 8:
             model.type(torch.uint8)
-                
         if opt.verbose:
             print(model)
     else:
@@ -68,5 +67,6 @@ if __name__=="__main__":
         visuals = OrderedDict([('input_label', util.tensor2label(data['label'][0], opt.label_nc)),
                             ('synthesized_image', util.tensor2im(generated.data[0]))])
         img_path = data['path']
-        print('process image... %s' % image_dir)
+        print(f'[INFO] Processing image: {i+1}', end='\r')
         visualizer.save_images_xyz(image_dir, visuals, img_path)
+    print("[INFO] Done processing images via test.py")
