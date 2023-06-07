@@ -8,13 +8,17 @@ def create_model(opt):
         else:
             model = InferenceModel()
     else:
-    	from .ui_model import UIModel
-    	model = UIModel()
+        from .ui_model import UIModel
+        model = UIModel()
+    print("[models.py] Marker 1")
     model.initialize(opt)
+    print("[models.py] Marker 2")
     if opt.verbose:
         print("model [%s] was created" % (model.name()))
+    print("[models.py] Marker 3")
 
     if opt.isTrain and len(opt.gpu_ids) and not opt.fp16:
         model = torch.nn.DataParallel(model, device_ids=opt.gpu_ids)
+    print("[models.py] Marker 4")
 
     return model

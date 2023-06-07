@@ -34,7 +34,7 @@ class Pix2PixHDModel(BaseModel):
             netG_input_nc += opt.feat_num                  
         self.netG = networks.define_G(netG_input_nc, opt.output_nc, opt.ngf, opt.netG, 
                                       opt.n_downsample_global, opt.n_blocks_global, opt.n_local_enhancers, 
-                                      opt.n_blocks_local, opt.norm, gpu_ids=self.gpu_ids)        
+                                      opt.n_blocks_local, opt.norm, gpu_ids=self.gpu_ids)
 
         # Discriminator network
         if self.isTrain:
@@ -53,15 +53,20 @@ class Pix2PixHDModel(BaseModel):
                 print('---------- Networks initialized -------------')
 
         # load networks
+        print("[pix2pixHD_model.py] Marker 1")
         if not self.isTrain or opt.continue_train or opt.load_pretrain:
             pretrained_path = '' if not self.isTrain else opt.load_pretrain
+            print("[pix2pixHD_model.py] Marker 2")
             self.load_network(self.netG, 'G', opt.which_epoch, pretrained_path)            
             if self.isTrain:
+                print("[pix2pixHD_model.py] Marker 3")
                 self.load_network(self.netD, 'D', opt.which_epoch, pretrained_path)  
             if self.gen_features:
+                print("[pix2pixHD_model.py] Marker 4")
                 self.load_network(self.netE, 'E', opt.which_epoch, pretrained_path)              
 
         # set loss functions and optimizers
+        print("[pix2pixHD_model.py] Marker 5")
         if self.isTrain:
             if opt.pool_size > 0 and (len(self.gpu_ids)) > 1:
                 raise NotImplementedError("Fake Pool Not Implemented for MultiGPU")
