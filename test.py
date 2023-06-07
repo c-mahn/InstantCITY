@@ -31,7 +31,9 @@ if __name__=="__main__":
 
     # test
     if not opt.engine and not opt.onnx:
+        print("[Test.py] Marker 1")
         model = create_model(opt)
+        print("[Test.py] Marker 2")
         if opt.data_type == 16:
             model.half()
         elif opt.data_type == 8:
