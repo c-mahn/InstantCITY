@@ -1,3 +1,12 @@
+# Notes
+
+ ```sh
+python test.py --name Jakarta --dataroot ./datasets/Exp4/Jakarta17/Source/17 --gpu_ids -1
+  ```
+
+
+
+# Orioginal Text
 
 <p align="center">
   <a href="https://ual.sg/">
