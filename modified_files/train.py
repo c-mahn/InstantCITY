@@ -6,6 +6,8 @@ from torch.autograd import Variable
 from collections import OrderedDict
 from subprocess import call
 import fractions
+from torch.cuda.amp import autocast, GradScaler
+
 
 def gcd(a, b):
     """Calculate the Greatest Common Divisor of a and b.
@@ -26,6 +28,8 @@ import util.util as util
 from util.visualizer import Visualizer
 
 if __name__=="__main__":
+    scaler = GradScaler()
+    torch.cuda.empty_cache()
     opt = TrainOptions().parse()
     iter_path = os.path.join(opt.checkpoints_dir, opt.name, 'iter.txt')
     if opt.continue_train:
@@ -44,6 +48,7 @@ if __name__=="__main__":
         opt.niter = 1
         opt.niter_decay = 0
         opt.max_dataset_size = 10
+        opt.batchSize = 1
 
     data_loader = CreateDataLoader(opt)
     dataset = data_loader.load_data()
@@ -53,8 +58,9 @@ if __name__=="__main__":
     model = create_model(opt)
     visualizer = Visualizer(opt)
     if opt.fp16:    
-        from apex import amp
-        model, [optimizer_G, optimizer_D] = amp.initialize(model, [model.optimizer_G, model.optimizer_D], opt_level='O1')             
+        # from apex import amp
+        from torch.cuda.amp import autocast, GradScaler
+        # model, [optimizer_G, optimizer_D] = amp.initialize(model, [model.optimizer_G, model.optimizer_D], opt_level='O1')             
         model = torch.nn.DataParallel(model, device_ids=opt.gpu_ids)
     else:
         optimizer_G, optimizer_D = model.module.optimizer_G, model.module.optimizer_D
@@ -66,6 +72,7 @@ if __name__=="__main__":
     save_delta = total_steps % opt.save_latest_freq
 
     for epoch in range(start_epoch, opt.niter + opt.niter_decay + 1):
+        torch.cuda.empty_cache()
         epoch_start_time = time.time()
         if epoch != start_epoch:
             epoch_iter = epoch_iter % dataset_size
@@ -78,9 +85,15 @@ if __name__=="__main__":
             # whether to collect output images
             save_fake = total_steps % opt.display_freq == display_delta
 
-            ############## Forward Pass ######################
-            losses, generated = model(Variable(data['label']), Variable(data['inst']), 
-                Variable(data['image']), Variable(data['feat']), infer=save_fake)
+            # ############## Forward Pass ######################
+            # losses, generated = model(Variable(data['label']), Variable(data['inst']), 
+            #     Variable(data['image']), Variable(data['feat']), infer=save_fake)
+            
+            # Forward Pass
+            with autocast():
+                losses, generated = model(Variable(data['label']), Variable(data['inst']), 
+                    Variable(data['image']), Variable(data['feat']), infer=save_fake)
+
 
             # sum per device losses
             losses = [ torch.mean(x) if not isinstance(x, int) else x for x in losses ]
@@ -94,7 +107,12 @@ if __name__=="__main__":
             # update generator weights
             optimizer_G.zero_grad()
             if opt.fp16:                                
-                with amp.scale_loss(loss_G, optimizer_G) as scaled_loss: scaled_loss.backward()                
+                # with amp.scale_loss(loss_G, optimizer_G) as scaled_loss: scaled_loss.backward()
+                # update generator weights
+                optimizer_G.zero_grad()
+                scaler.scale(loss_G).backward()
+                scaler.step(optimizer_G)
+                scaler.update()
             else:
                 loss_G.backward()          
             optimizer_G.step()
@@ -102,7 +120,12 @@ if __name__=="__main__":
             # update discriminator weights
             optimizer_D.zero_grad()
             if opt.fp16:                                
-                with amp.scale_loss(loss_D, optimizer_D) as scaled_loss: scaled_loss.backward()                
+                # with amp.scale_loss(loss_D, optimizer_D) as scaled_loss: scaled_loss.backward()
+                # update discriminator weights
+                optimizer_D.zero_grad()  
+                scaler.scale(loss_D).backward()
+                scaler.step(optimizer_D)
+                scaler.update()
             else:
                 loss_D.backward()        
             optimizer_D.step()        
