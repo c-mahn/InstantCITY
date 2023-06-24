@@ -1,7 +1,6 @@
-checkpoints/
-results/
-datasets/
 *.qgz
 *.gpkg
 *.pyc
 README copy.md
+repo/
+GANmapper\ Data.zip
