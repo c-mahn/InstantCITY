@@ -43,12 +43,13 @@ if __name__=="__main__":
 
     opt.print_freq = lcm(opt.print_freq, opt.batchSize)    
     if opt.debug:
-        opt.display_freq = 1
-        opt.print_freq = 1
-        opt.niter = 1
-        opt.niter_decay = 0
-        opt.max_dataset_size = 10
-        opt.batchSize = 1
+        # opt.display_freq = 1
+        # opt.print_freq = 1
+        opt.niter = 2910
+        opt.niter_decay = 2910
+        opt.nThreads = 30
+        # opt.max_dataset_size = 10
+        # opt.batchSize = 1
 
     data_loader = CreateDataLoader(opt)
     dataset = data_loader.load_data()
@@ -59,7 +60,6 @@ if __name__=="__main__":
     visualizer = Visualizer(opt)
     if opt.fp16:    
         # from apex import amp
-        from torch.cuda.amp import autocast, GradScaler
         # model, [optimizer_G, optimizer_D] = amp.initialize(model, [model.optimizer_G, model.optimizer_D], opt_level='O1')             
         model = torch.nn.DataParallel(model, device_ids=opt.gpu_ids)
     else:
