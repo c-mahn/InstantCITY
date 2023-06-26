@@ -48,6 +48,7 @@ if __name__=="__main__":
         opt.niter = 2910
         opt.niter_decay = 2910
         opt.nThreads = 30
+        opt.save_epoch_freq=100
         # opt.max_dataset_size = 10
         # opt.batchSize = 1
 
