@@ -45,8 +45,8 @@ if __name__=="__main__":
     if opt.debug:
         # opt.display_freq = 1
         # opt.print_freq = 1
-        opt.niter = 2910
-        opt.niter_decay = 2910
+        opt.niter = 2000
+        opt.niter_decay = 2000
         opt.nThreads = 30
         opt.save_epoch_freq=100
         # opt.max_dataset_size = 10
