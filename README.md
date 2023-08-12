@@ -231,3 +231,5 @@ To run the test script, run the following command:
 ```
 
 The name of the model is the name of the folder, that contains the model in the checkpoints folder. The dataroot is the name of the folder, that contains the test data in the test folder. Make sure you change the parameter of the command accordingly, so it matches your model and test data.
+
+The results of the test will be saved in the fake\16 folder. The test of the model will be quite fast and will only take a few dozen seconds to complete.
