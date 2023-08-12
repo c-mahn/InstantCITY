@@ -1,5 +1,15 @@
 # InstantCity
-This repository is the Programming Workspace for the lecture "Big Data Analysis" in the Masters Study Geodesy and Geoinformatics at Hafencity University Hamburg.
+This repository is the Programming Workspace for the lecture "Big Data Analytics" in the Masters Study Geodesy and Geoinformatics at Hafencity University Hamburg.
+
+## Introduction
+
+Many datasets are collected using a variety of methods. More and more buildings are being built. In 2022 [GANmapper](https://github.com/ualsg/GANmapper) was developed to transform one spatial datasets to another. The prediction is very similar to ground trut (Wu A.N. & Biljecki F., 2022).
+
+### Technical Use
+
+The goal of this project is to use the GANmapper to transform a dataset of a city to a dataset of another city. Here it will be used to transform the city of Allermöhe to the new city district Oberbillwerder. [InstantCity](https://github.com/ualsg/InstantCITY) transfers a building scheme from one city to another which has a mean accuracy of 92.4% (Wu A.N. & Biljecki F., 2023).
+
+InstantCity and GANmapper are based on the model called [pix2pixHD](https://github.com/NVIDIA/pix2pixHD). This is able to segmentate objects out of images. So the model builds new realistic images  out of the given images. 
 
 
 ## Using InstantCity
