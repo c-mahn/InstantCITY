@@ -244,11 +244,11 @@ The first result shows a few well predicted buildings, but also a few buildings,
 
 ![Result new 1](./img/fake_15_prediction.png)
 
-In the second result, there are more bigger buildings and these buildings are more spread. Some buildings were predicted in the center of the district. There are very much free place in the district. The transitions between the tiles are not very seamlessly.
+In the second result, there are more bigger buildings and these buildings are more spread. Some buildings were predicted in the center of the district. There are very much free place in the district. The transitions between the tiles are not very seamless.
 
 ![Result new 2](./img/fake_16_prediction.png)
 
-In the last result, there are many little buildings, that are well predicted. The transitions between the tiles are not very seamlessly.
+In the last result, there are many little buildings, that are well predicted. The transitions between the tiles are not very seamless.
 With this result, we can see, that the model is able to predict buildings, that are well spread and not only in the center of the district. This result is the best result of the three results.
 
 ## Conclusion
