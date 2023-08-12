@@ -201,3 +201,23 @@ To see the available test-datasets, run the following command:
 # Available test-datasets
 !ls ./test/
 ```
+
+#### Run the test script
+
+To run the test script, run the following command:
+
+```
+# Testing of the model
+# --------------------
+
+# Remember:
+# The model must be available at "./checkpoints/{name}/"
+# The the test images must be available at "./test/{dataroot}"
+# !python test.py --name {name} --dataroot ./test/{dataroot}
+
+!rm -r ./fake\\16/
+!python test.py --name custom_model --dataroot ./test/oberbillwerder
+!ls ./fake\\16/
+```
+
+The name of the model is the name of the folder, that contains the model in the checkpoints folder. The dataroot is the name of the folder, that contains the test data in the test folder. Make sure you change the parameter of the command accordingly, so it matches your model and test data.
