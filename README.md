@@ -21,7 +21,7 @@ InstantCity and GANmapper are based on the model called [pix2pixHD](https://gith
 
 ### Setup of InstantCity (Overview)
 
-- Open the Jupyter Notebook and follow the following steps:
+- Open the Jupyter Notebook "InstantCity_FabianUndChristopher.ipynb" and follow the following steps:
     - Clone the InstantCity repository
     - "CD" into the InstantCity folder
     - Make sure you have the correct Python version installed
