@@ -28,6 +28,7 @@ import util.util as util
 from util.visualizer import Visualizer
 
 if __name__=="__main__":
+    torch.cuda.empty_cache()
     scaler = GradScaler()
     torch.cuda.empty_cache()
     opt = TrainOptions().parse()
@@ -49,8 +50,8 @@ if __name__=="__main__":
         opt.niter_decay = 2000
         opt.nThreads = 30
         opt.save_epoch_freq=100
-        # opt.max_dataset_size = 10
-        # opt.batchSize = 1
+        opt.max_dataset_size = 20
+        opt.batchSize = 1
 
     data_loader = CreateDataLoader(opt)
     dataset = data_loader.load_data()
@@ -78,6 +79,7 @@ if __name__=="__main__":
         if epoch != start_epoch:
             epoch_iter = epoch_iter % dataset_size
         for i, data in enumerate(dataset, start=epoch_iter):
+            torch.cuda.empty_cache()
             if total_steps % opt.print_freq == print_delta:
                 iter_start_time = time.time()
             total_steps += opt.batchSize
