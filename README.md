@@ -257,4 +257,4 @@ To sum up the work of this repo, the following conclusion can be made:
 - The results are not very good, but the last result seems to be a possible solution to the problem.
 - The model is able to predict buildings that are well distributed and not only in the centre of the district. This is very good.
 
-All in all, we got the InstantCity model to work. The work was not very satisfying, but the results show how buildings can be predicted. The results are not 100% satisfactory.
+All in all, we got the InstantCity model to work. The work was not 100% satisfactory, but the results show how buildings can be predicted.
