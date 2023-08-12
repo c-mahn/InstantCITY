@@ -233,3 +233,23 @@ To run the test script, run the following command:
 The name of the model is the name of the folder, that contains the model in the checkpoints folder. The dataroot is the name of the folder, that contains the test data in the test folder. Make sure you change the parameter of the command accordingly, so it matches your model and test data.
 
 The results of the test will be saved in the fake\16 folder. The test of the model will be quite fast and will only take a few dozen seconds to complete.
+
+## Results
+
+The predicted results shown in the three figures below are the results of this work:
+
+![Result old](./img/old_prediction.png)
+
+The first result shows a few well predicted buildings, but also a few buildings, that are not predicted well. There are many buildings which aren't rectangular. The transitions between the tiles are seamless.
+
+![Result new 1](./img/fake_15_prediction.png)
+
+In the second result, there are more bigger buildings and these buildings are more spread. Some buildings were predicted in the center of the district. There are very much free place in the district. The transitions between the tiles are not very seamlessly.
+
+![Result new 2](./img/fake_16_prediction.png)
+
+In the last result, there are many little buildings, that are well predicted. The transitions between the tiles are not very seamlessly.
+With this result, we can see, that the model is able to predict buildings, that are well spread and not only in the center of the district. This result is the best result of the three results.
+
+## Conclusion
+
